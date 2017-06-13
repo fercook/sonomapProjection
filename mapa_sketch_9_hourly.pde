@@ -66,11 +66,11 @@ y <- x sin(-a)+ y cos(a)
 //Keystone ks;
 //CornerPinSurface surface;
 //PGraphics offscreen;
-PFont f;
+PFont font;
 
 final int num_layers = 4; // Layers that are visualized...it's actually three plus the empty layer
 
-String[] layers = {"Viario", "Train", "Industrial", "Total"};
+String[] layers = {"Viario", "Industrial", "Train", "Total"};
 float[] maxNoises;
 
 float[][] data_layers;
@@ -113,24 +113,24 @@ void setup() {
   legend_img = loadImage("leyenda.png"); //<>//
   logo_img = loadImage("sonomap.png");
   
-  top_legend = 30;
-  top_logo = height-logo_img.height/2;
+  top_legend = height-legend_img.height;
+  top_logo = 0; //
   x_logo = 0; //width-logo_img.width;
-  x_legend=0;
+  x_legend=width-legend_img.width;;
   
   //ks = new Keystone(this);
   //surface = ks.createCornerPinSurface(1920, 1080, 20);
   //offscreen = createGraphics(1920, 1080, P3D);  
   background(back);  
   
-  f = createFont("Arial",16,true);
-  textFont(f,24);
+  font = loadFont("Orbitron-Medium-48.vlw");//createFont("Orbitron-Medium",48,true);
+  textFont(font,48);
  
   prepare_colors();
   Color_Scale empty_color = new Color_Scale();
   empty_color.add_color(0.0,back);
   empty_color.add_color(100.0,back);
-  Color_Scale[] color_scales = {traffic_color, trains_color, industry_color, empty_color};
+  Color_Scale[] color_scales = {traffic_color, industry_color,  trains_color,  empty_color};
  
     data_layers = new float[num_layers][Nx*Ny];
     maxNoises = new float[num_layers];
@@ -244,7 +244,7 @@ void setup() {
    }
 }
 
-int frame=0, timeSpacing = 10;
+int frame=0, timeSpacing = 20;
 float[] ranNumbers;
 
     int kind;
@@ -346,7 +346,7 @@ void draw() {
           }
           noise = legend_values[ny][nx];
           c = cPicker.interpolate( legend_from_layer[leg][ny][nx], legend_to_layer[leg][ny][nx], legend_age_layer[leg][ny][nx] , noise); 
-          pix = (top_legend+ny+legend_positions[leg]-1)*width+1+nx;
+          pix = (top_legend+legend_positions[leg]+ny-1)*width+x_legend+nx;
           //offscreen.pixels[pix] = c;
           pixels[pix] = c;
         } 
@@ -358,7 +358,7 @@ void draw() {
     //offscreen.fill(255);
     fill(255);
     //offscreen.
-    text((frame/10)+" "+":::"+startFrame+"->"+endFrame+","+remainder+" --- "+frameRate,10,20);
+    text(nf(frame/timeSpacing,2)+":"+nf(floor(remainder*60),2),x_legend+30,top_legend-10);
     //offscreen.endDraw();
     
     //println("Changed ",floor(100.0*changes/offscreen.pixels.length),"% pixels");
