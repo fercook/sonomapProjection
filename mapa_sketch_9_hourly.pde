@@ -123,7 +123,7 @@ void setup() {
   //offscreen = createGraphics(1920, 1080, P3D);  
   background(back);  
   
-  font = loadFont("Orbitron-Medium-48.vlw");//createFont("Orbitron-Medium",48,true);
+  font = loadFont("Digitalism-48.vlw");//createFont("Orbitron-Medium",48,true);
   textFont(font,48);
  
   prepare_colors();
