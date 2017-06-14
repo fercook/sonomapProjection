@@ -358,7 +358,7 @@ void draw() {
     //offscreen.fill(255);
     fill(255);
     //offscreen.
-    text(nf(frame/timeSpacing,2)+":"+nf(floor(remainder*60),2),x_legend+30,top_legend-10);
+    text(nf(frame/timeSpacing,2)+":"+nf(floor(remainder*60),2),x_legend+60,top_legend-10);
     //offscreen.endDraw();
     
     //println("Changed ",floor(100.0*changes/offscreen.pixels.length),"% pixels");
